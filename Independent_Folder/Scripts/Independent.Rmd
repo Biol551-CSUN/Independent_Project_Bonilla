@@ -41,20 +41,20 @@ View(olympics)
 ## Data Analysis: USA & USSR
 
 ```{r}
-GoldEverything<-olympics%>%
+GoldEverything<-olympics%>% # Isolating gold medalists
   filter(medal == "Gold")
 view(GoldEverything)
 
-Summer<-olympics%>%
-  filter(season == "Summer")
-view(Summer)
+USSRGold<-olympics%>%
+  filter(medal == "Gold",
+         team == "Soviet Union")
 
-USAGoldSummer<-olympics%>%
+USAGoldSummer<-olympics%>% # Isolating USA gold medalists in basketball 
   filter(season == "Summer",
          medal == "Gold",
          team == "United States",
          sport == "Basketball",
-         year >= "1984")%>%
+         year >= "1984")%>% # Isolating consecutive golden years
   select(name, sex, team, year, games, sport, event, medal)%>%
   rename("Name" = name,
          "Sex"=sex,
@@ -66,25 +66,15 @@ USAGoldSummer<-olympics%>%
          "Year"=year)
 view(USAGoldSummer)
 
-USAGoldSummerD<-USAGoldSummer%>%
+USAGoldSummerD<-USAGoldSummer%>% # Structure data in descending order by year
   arrange(desc(Year))
 
-RussiaGold<-olympics%>%
-  filter(medal == "Gold",
-         team == "Russia")
-view(RussiaGold)
-
-USSRGold<-olympics%>%
-  filter(medal == "Gold",
-         team == "Soviet Union")
-view(USSRGold)
-
-USSRGoldSummer<-olympics%>%
+USSRGoldSummer<-olympics%>% # Isolating USSR gold medalists in gymnastics
   filter(season == "Summer",
          medal == "Gold",
          team == "Soviet Union",
          sport == "Gymnastics",
-         year<= "1980")%>%
+         year<= "1980")%>% # Isolating consecutive golden years
   select(name, sex, team, year, games, sport, event, medal)%>%
   rename("Name" = name,
          "Sex"=sex,
@@ -96,19 +86,19 @@ USSRGoldSummer<-olympics%>%
          "Year"=year)
 view(USSRGoldSummer)
 
-USSRGoldSummerD<-USSRGoldSummer%>%
+USSRGoldSummerD<-USSRGoldSummer%>% # Structure data in descending order by year
   arrange(desc(Year))
 
 ```
 
 ## Table 1. Team USA Basketball
 ```{r}
-Table1<-USAGoldSummerD%>%
+Table1<-USAGoldSummerD%>% # Creating table
   group_by(Name, Sex)%>%
   kbl(caption = "Team USA Basketball Gold Medalists")%>%
   kable_material_dark(c("striped"), 
                 full_width = FALSE, fixed_thead = T, position = "center", 
-                font_size = 12) %>%
+                font_size = 12) %>% # Organizing layout for the prettydoc
     row_spec(0, bold = T, color = "black", background = "blue")%>%
   row_spec(1:179, color = "black", background = "grey")
  Table1
@@ -117,10 +107,10 @@ Table1<-USAGoldSummerD%>%
 
 ## Figure 1. Team USA Best Era
 ```{r, USAplot,fig.align='center'}
-USAplot<-USAGoldSummerD%>%
+USAplot<-USAGoldSummerD%>% # Plotting gold medalists by year
   ggplot( aes(x = Year,
             y = Medal))+
-  geom_dotplot(fill = 'gold')+
+  geom_dotplot(fill = 'gold')+ # dot plot counts each medal
   labs(title = "USA Dominance in Basketball")+
   theme(plot.title = element_text(hjust = 0.5),
         panel.border = element_rect(fill = NA,
@@ -130,12 +120,12 @@ USAplot
 
 ## Table 2. Team USSR Gymnastics
 ```{r}
-Table2<-USSRGoldSummerD%>%
+Table2<-USSRGoldSummerD%>% # Creating table
   group_by(Name, Sex)%>%
   kbl(caption = "Team Soviet Union Gymastics Gold Medalists")%>%
   kable_material_dark(c("striped"), 
                 full_width = FALSE, fixed_thead = T, position = "center", 
-                font_size = 12) %>%
+                font_size = 12) %>% # Organizing layout for the prettydoc
   row_spec(0, bold = T, color = "black", background = "red")%>%
   row_spec(1:120, color ="black", background = "grey")
 Table2
@@ -143,10 +133,10 @@ Table2
 
 ## Figure 2. Team USSR Best Era
 ```{r,USSRplot, fig.align='center'}
-USSRplot<-USSRGoldSummerD%>%
+USSRplot<-USSRGoldSummerD%>% # Plotting gold medalists by year
   ggplot( aes(x = Year,
             y = Medal))+
-  geom_dotplot(fill = 'gold')+
+  geom_dotplot(fill = 'gold')+ # dot plot counts each medal
   labs(title = "USSR Dominance in Gymnastics")+
   theme(plot.title = element_text(hjust = 0.5),
         panel.border = element_rect(fill = NA,
@@ -156,7 +146,7 @@ USSRplot
 
 ## Figure 3. Comparisson of Dominant Eras
 ```{r, CompareP, fig.align='center'}
-CompareP<-USAplot+USSRplot+
+CompareP<-USAplot+USSRplot+ # Patchworking the two figures together
   plot_layout(guides = 'collect')+
   plot_annotation(tag_levels = 'A')
 
@@ -165,7 +155,7 @@ CompareP
 
 ## Data Analysis: USA Sexes
 ```{r}
-USAMen<-olympics%>%
+USAMen<-olympics%>% # USA gold medalists by gender
   filter(season == "Summer",
          sex=="M",
          medal == "Gold",
@@ -183,7 +173,7 @@ USAMen<-olympics%>%
          "Year"=year)
 view(USAMen)
 
-USAWomen<-olympics%>%
+USAWomen<-olympics%>% # USA gold medalists by gender
   filter(season == "Summer",
          sex=="F",
          medal == "Gold",
@@ -204,23 +194,23 @@ view(USAWomen)
 
 ## Figure 4. USA Men vs Women
 ```{r, mvf, fig.align='center'}
-USAmenp<-USAMen%>%
+USAmenp<-USAMen%>% # Plotting by gender
   ggplot( aes(x = Year,
             y = Medal))+
-  geom_dotplot(fill = 'gold')+
+  geom_dotplot(fill = 'gold')+ # dot plot counts each medal
   labs(title = "USA Men's Basketball Winners")+
   theme(plot.title = element_text(hjust = 0.5),
         panel.border = element_rect(fill = NA,
                                     color = "blue"))
-USAwomenp<-USAWomen%>%
+USAwomenp<-USAWomen%>% # Plotting by gender
   ggplot( aes(x = Year,
             y = Medal))+
-  geom_dotplot(fill = 'gold')+
+  geom_dotplot(fill = 'gold')+ # dot plot counts each medal
   labs(title = "USA Women's Basketball Winners")+
   theme(plot.title = element_text(hjust = 0.5),
         panel.border = element_rect(fill = NA,
                                     color = "pink"))
-mvf<-USAmenp+USAwomenp+
+mvf<-USAmenp+USAwomenp+ # Patchworking gender figures together
   plot_layout(guides = 'collect')+
   plot_annotation(tag_levels = 'A')
 
@@ -229,7 +219,7 @@ mvf
 
 ## Data Analysis USSR Sexes
 ```{r}
-USSRMen<-olympics%>%
+USSRMen<-olympics%>% # USSR gold medalists by gender
   filter(season == "Summer",
          sex == "M",
          medal == "Gold",
@@ -247,7 +237,7 @@ USSRMen<-olympics%>%
          "Year"=year)
 view(USSRMen)
 
-USSRWomen<-olympics%>%
+USSRWomen<-olympics%>% # USSR gold medalists by gender
   filter(season == "Summer",
          sex == "F",
          medal == "Gold",
@@ -268,18 +258,18 @@ view(USSRWomen)
 
 ## Figure 5. USSR Men vs. Women
 ```{r, mvfUSSR, fig.align='center'}
-USSRMP<-USSRMen%>%
+USSRMP<-USSRMen%>% # Plotting by gender
   ggplot( aes(x = Year,
             y = Medal))+
-  geom_dotplot(fill = 'gold')+
+  geom_dotplot(fill = 'gold')+ # dot plot counts each medal
   labs(title = "USSR Men's Gymnastics Winners")+
   theme(plot.title = element_text(hjust = 0.5),
         panel.border = element_rect(fill = NA,
                                     color = "blue"))
-USSRWP<-USSRWomen%>%
+USSRWP<-USSRWomen%>% # Plotting by gender
   ggplot( aes(x = Year,
             y = Medal))+
-  geom_dotplot(fill = 'gold')+
+  geom_dotplot(fill = 'gold')+ # dot plot counts each medal
   labs(title = "USSR Women's Gymnastics Winners")+
   theme(plot.title = element_text(hjust = 0.5),
         panel.border = element_rect(fill = NA,
@@ -293,13 +283,11 @@ mvfUSSR
 ### Extra Functions
 ```{r}
 
-table(USAGoldSummerD['Sex'])
+table(USAGoldSummerD['Sex']) # Counting USA gold medals by sex
 
-table(RussiaGold['sport'])
+table(USSRGold['sport']) # Counting USSR gold medals by sport
 
-table(USSRGold['sport'])
-
-table(GoldEverything['team'])
+table(GoldEverything['team']) # Counting all gold medals by team
 ```
 
 

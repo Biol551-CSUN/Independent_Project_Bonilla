@@ -162,20 +162,20 @@ a.sourceLine {
 </div>
 <div id="data-analysis-usa-ussr" class="section level2">
 <h2>Data Analysis: USA &amp; USSR</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>GoldEverything<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>GoldEverything<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span> <span class="co"># Isolating gold medalists</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(GoldEverything)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Summer<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(Summer)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>USSRGold<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>         team <span class="sc">==</span> <span class="st">&quot;Soviet Union&quot;</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>USAGoldSummer<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>USAGoldSummer<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span> <span class="co"># Isolating USA gold medalists in basketball </span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>         medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>         team <span class="sc">==</span> <span class="st">&quot;United States&quot;</span>,</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>         sport <span class="sc">==</span> <span class="st">&quot;Basketball&quot;</span>,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>         year <span class="sc">&gt;=</span> <span class="st">&quot;1984&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>         year <span class="sc">&gt;=</span> <span class="st">&quot;1984&quot;</span>)<span class="sc">%&gt;%</span> <span class="co"># Isolating consecutive golden years</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, sex, team, year, games, sport, event, medal)<span class="sc">%&gt;%</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;Name&quot;</span> <span class="ot">=</span> name,</span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Sex&quot;</span><span class="ot">=</span>sex,</span>
@@ -187,47 +187,37 @@ a.sourceLine {
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Year&quot;</span><span class="ot">=</span>year)</span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(USAGoldSummer)</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>USAGoldSummerD<span class="ot">&lt;-</span>USAGoldSummer<span class="sc">%&gt;%</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>USAGoldSummerD<span class="ot">&lt;-</span>USAGoldSummer<span class="sc">%&gt;%</span> <span class="co"># Structure data in descending order by year</span></span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Year))</span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>RussiaGold<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>         team <span class="sc">==</span> <span class="st">&quot;Russia&quot;</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(RussiaGold)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>USSRGold<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>         team <span class="sc">==</span> <span class="st">&quot;Soviet Union&quot;</span>)</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(USSRGold)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>USSRGoldSummer<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>         medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>         team <span class="sc">==</span> <span class="st">&quot;Soviet Union&quot;</span>,</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>         sport <span class="sc">==</span> <span class="st">&quot;Gymnastics&quot;</span>,</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>         year<span class="sc">&lt;=</span> <span class="st">&quot;1980&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, sex, team, year, games, sport, event, medal)<span class="sc">%&gt;%</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;Name&quot;</span> <span class="ot">=</span> name,</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Sex&quot;</span><span class="ot">=</span>sex,</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Team&quot;</span><span class="ot">=</span>team,</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Games&quot;</span> <span class="ot">=</span>games,</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Sport&quot;</span><span class="ot">=</span>sport,</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Event&quot;</span><span class="ot">=</span>event,</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Medal&quot;</span><span class="ot">=</span>medal,</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Year&quot;</span><span class="ot">=</span>year)</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(USSRGoldSummer)</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>USSRGoldSummerD<span class="ot">&lt;-</span>USSRGoldSummer<span class="sc">%&gt;%</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Year))</span></code></pre></div>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>USSRGoldSummer<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span> <span class="co"># Isolating USSR gold medalists in gymnastics</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>         medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>         team <span class="sc">==</span> <span class="st">&quot;Soviet Union&quot;</span>,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>         sport <span class="sc">==</span> <span class="st">&quot;Gymnastics&quot;</span>,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>         year<span class="sc">&lt;=</span> <span class="st">&quot;1980&quot;</span>)<span class="sc">%&gt;%</span> <span class="co"># Isolating consecutive golden years</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, sex, team, year, games, sport, event, medal)<span class="sc">%&gt;%</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;Name&quot;</span> <span class="ot">=</span> name,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Sex&quot;</span><span class="ot">=</span>sex,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Team&quot;</span><span class="ot">=</span>team,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Games&quot;</span> <span class="ot">=</span>games,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Sport&quot;</span><span class="ot">=</span>sport,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Event&quot;</span><span class="ot">=</span>event,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Medal&quot;</span><span class="ot">=</span>medal,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Year&quot;</span><span class="ot">=</span>year)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(USSRGoldSummer)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>USSRGoldSummerD<span class="ot">&lt;-</span>USSRGoldSummer<span class="sc">%&gt;%</span> <span class="co"># Structure data in descending order by year</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Year))</span></code></pre></div>
 </div>
 <div id="table-1.-team-usa-basketball" class="section level2">
 <h2>Table 1. Team USA Basketball</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Table1<span class="ot">&lt;-</span>USAGoldSummerD<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Table1<span class="ot">&lt;-</span>USAGoldSummerD<span class="sc">%&gt;%</span> <span class="co"># Creating table</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Name, Sex)<span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Team USA Basketball Gold Medalists&quot;</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_material_dark</span>(<span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>), </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">fixed_thead =</span> T, <span class="at">position =</span> <span class="st">&quot;center&quot;</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="co"># Organizing layout for the prettydoc</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> T, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">background =</span> <span class="st">&quot;blue&quot;</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">179</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">background =</span> <span class="st">&quot;grey&quot;</span>)</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a> Table1</span></code></pre></div>
@@ -4923,10 +4913,10 @@ Gold
 </div>
 <div id="figure-1.-team-usa-best-era" class="section level2">
 <h2>Figure 1. Team USA Best Era</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>USAplot<span class="ot">&lt;-</span>USAGoldSummerD<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>USAplot<span class="ot">&lt;-</span>USAGoldSummerD<span class="sc">%&gt;%</span> <span class="co"># Plotting gold medalists by year</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> Medal))<span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span> <span class="co"># dot plot counts each medal</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;USA Dominance in Basketball&quot;</span>)<span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>,</span>
@@ -4936,12 +4926,12 @@ Gold
 </div>
 <div id="table-2.-team-ussr-gymnastics" class="section level2">
 <h2>Table 2. Team USSR Gymnastics</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Table2<span class="ot">&lt;-</span>USSRGoldSummerD<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Table2<span class="ot">&lt;-</span>USSRGoldSummerD<span class="sc">%&gt;%</span> <span class="co"># Creating table</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Name, Sex)<span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;Team Soviet Union Gymastics Gold Medalists&quot;</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_material_dark</span>(<span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>), </span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">fixed_thead =</span> T, <span class="at">position =</span> <span class="st">&quot;center&quot;</span>, </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="co"># Organizing layout for the prettydoc</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> T, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">background =</span> <span class="st">&quot;red&quot;</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">120</span>, <span class="at">color =</span><span class="st">&quot;black&quot;</span>, <span class="at">background =</span> <span class="st">&quot;grey&quot;</span>)</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Table2</span></code></pre></div>
@@ -8103,10 +8093,10 @@ Gold
 </div>
 <div id="figure-2.-team-ussr-best-era" class="section level2">
 <h2>Figure 2. Team USSR Best Era</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>USSRplot<span class="ot">&lt;-</span>USSRGoldSummerD<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>USSRplot<span class="ot">&lt;-</span>USSRGoldSummerD<span class="sc">%&gt;%</span> <span class="co"># Plotting gold medalists by year</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> Medal))<span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span> <span class="co"># dot plot counts each medal</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;USSR Dominance in Gymnastics&quot;</span>)<span class="sc">+</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>,</span>
@@ -8116,7 +8106,7 @@ Gold
 </div>
 <div id="figure-3.-comparisson-of-dominant-eras" class="section level2">
 <h2>Figure 3. Comparisson of Dominant Eras</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>CompareP<span class="ot">&lt;-</span>USAplot<span class="sc">+</span>USSRplot<span class="sc">+</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>CompareP<span class="ot">&lt;-</span>USAplot<span class="sc">+</span>USSRplot<span class="sc">+</span> <span class="co"># Patchworking the two figures together</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&#39;collect&#39;</span>)<span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">&#39;A&#39;</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -8125,7 +8115,7 @@ Gold
 </div>
 <div id="data-analysis-usa-sexes" class="section level2">
 <h2>Data Analysis: USA Sexes</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>USAMen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>USAMen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span> <span class="co"># USA gold medalists by gender</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         sex<span class="sc">==</span><span class="st">&quot;M&quot;</span>,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
@@ -8143,7 +8133,7 @@ Gold
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Year&quot;</span><span class="ot">=</span>year)</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(USAMen)</span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>USAWomen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>USAWomen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span> <span class="co"># USA gold medalists by gender</span></span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,</span>
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>         sex<span class="sc">==</span><span class="st">&quot;F&quot;</span>,</span>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>         medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
@@ -8163,23 +8153,23 @@ Gold
 </div>
 <div id="figure-4.-usa-men-vs-women" class="section level2">
 <h2>Figure 4. USA Men vs Women</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>USAmenp<span class="ot">&lt;-</span>USAMen<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>USAmenp<span class="ot">&lt;-</span>USAMen<span class="sc">%&gt;%</span> <span class="co"># Plotting by gender</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> Medal))<span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span> <span class="co"># dot plot counts each medal</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;USA Men&#39;s Basketball Winners&quot;</span>)<span class="sc">+</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>,</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>))</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>USAwomenp<span class="ot">&lt;-</span>USAWomen<span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>USAwomenp<span class="ot">&lt;-</span>USAWomen<span class="sc">%&gt;%</span> <span class="co"># Plotting by gender</span></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> Medal))<span class="sc">+</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span> <span class="co"># dot plot counts each medal</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;USA Women&#39;s Basketball Winners&quot;</span>)<span class="sc">+</span></span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>,</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">color =</span> <span class="st">&quot;pink&quot;</span>))</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>mvf<span class="ot">&lt;-</span>USAmenp<span class="sc">+</span>USAwomenp<span class="sc">+</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>mvf<span class="ot">&lt;-</span>USAmenp<span class="sc">+</span>USAwomenp<span class="sc">+</span> <span class="co"># Patchworking gender figures together</span></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&#39;collect&#39;</span>)<span class="sc">+</span></span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">&#39;A&#39;</span>)</span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
@@ -8188,7 +8178,7 @@ Gold
 </div>
 <div id="data-analysis-ussr-sexes" class="section level2">
 <h2>Data Analysis USSR Sexes</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>USSRMen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>USSRMen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span> <span class="co"># USSR gold medalists by gender</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;M&quot;</span>,</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
@@ -8206,7 +8196,7 @@ Gold
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Year&quot;</span><span class="ot">=</span>year)</span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(USSRMen)</span>
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>USSRWomen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>USSRWomen<span class="ot">&lt;-</span>olympics<span class="sc">%&gt;%</span> <span class="co"># USSR gold medalists by gender</span></span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,</span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>,</span>
 <span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>         medal <span class="sc">==</span> <span class="st">&quot;Gold&quot;</span>,</span>
@@ -8226,18 +8216,18 @@ Gold
 </div>
 <div id="figure-5.-ussr-men-vs.-women" class="section level2">
 <h2>Figure 5. USSR Men vs. Women</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>USSRMP<span class="ot">&lt;-</span>USSRMen<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>USSRMP<span class="ot">&lt;-</span>USSRMen<span class="sc">%&gt;%</span> <span class="co"># Plotting by gender</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> Medal))<span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span> <span class="co"># dot plot counts each medal</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;USSR Men&#39;s Gymnastics Winners&quot;</span>)<span class="sc">+</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>,</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>))</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>USSRWP<span class="ot">&lt;-</span>USSRWomen<span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>USSRWP<span class="ot">&lt;-</span>USSRWomen<span class="sc">%&gt;%</span> <span class="co"># Plotting by gender</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x =</span> Year,</span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> Medal))<span class="sc">+</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">fill =</span> <span class="st">&#39;gold&#39;</span>)<span class="sc">+</span> <span class="co"># dot plot counts each medal</span></span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;USSR Women&#39;s Gymnastics Winners&quot;</span>)<span class="sc">+</span></span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>,</span>
@@ -8248,31 +8238,11 @@ Gold
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>mvfUSSR</span></code></pre></div>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAHgCAMAAABNUi8GAAABOFBMVEUAAAAAACsAAFUAAP8AKysAK1UAK4AAVaorAAArACsrAFUrKwArKysrK1UrVVUrVYArVaorgKorgNQzMzNNTU1NTWtNTYhNa4hNa6ZNiMRVAABVKwBVKytVK1VVVStVgIBVgKpVgNRVqqpVqtRVqv9rTU1rTWtrTYhra6ZrpsRrpuGAKwCAVQCAVSuAVVWAgCuAgKqAqoCAqqqAqtSA1KqA1NSA1P+ITU2ITWuITYiIa02Ia6aIxP+ma02ma2umiE2mxKam4f+qVQCqVSuqgCuqgFWqqoCqqtSq1ICq1NSq1P+q/9Sq///EiE3E///UgCvUqlXUqoDU1KrU1NTU1P/U/6rU/9TU///hpmvh///r6+v/qlX/wMv/xIj/1ID/1Kr/1NT/1wD/4ab//6r//8T//9T//+H///84AK+TAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAWJElEQVR4nO2cDXsbV1qGxyGN1Xb7geOUrlMoUJddapZlKaRbSBaiwrKUJHILu96sGnUbR5n//w8486mRZHk0muexj+T7ua5GcnR0++jNPedLUpOUkIiTXHcHCLksCEqiDoKSqIOgJOogKIk6CEqiDoKSqIOgJOogKIk6CEqiDoKSqIOgJOogKIk6CEqiDoKSqIOgJOogKIk6Fwg6To6vvh+7llGS572vr7sj254LBB0m+1fejZ1LKWhy68l192TLsyzoZPCjvQfX0JPdyig3c/oVs1HPLAs6uvWbwcE19GS3UggarnZK2S9Lgp4f7U9P7pxdR192KeUI+h9MRj2zJGi2RWKb1DvVGpQBtGeWBB2GSz+MotfQlZ1KJej7zEX9sijoZMDmU5FyDXrKiUjPLArK1KRJKWg+IZEeWRC03B+dH7FN6hcEFWVB0HE5dA7ZffZLPcVzpffLgqCVmGPWTv1SLZU4D+mZeUEng/3izvSEqalXSkHfYSLqGT7NRKIOgpKog6Ak6igErY5Uzo+yI4Dpf76dJLf/Mt+8Nu5Xu4Z36k9IDt/5vLz3zUcXH7uOLzhLmJ7+KKP896adnfz5k/SSDxuUu8RRsfsODX/n/WDCZrVb6mWXLm5XVeWCTk+KYmYdaN6vt7X17muYlJWaDFa8L3BBKc/v93wnIevsJaUsP4ZQ9s3/yZnNarfUyy6/cruqKhd0nNwJ1/n3J1mXmvfLRtOv6iIM994u7o5ur/hQ2nIpwz/be+Eyn34z2PSgdnT58UTxj31+9HE+ovk/NbNZ7Xr1cruqKhd0VLzGvEtz9+fmsizDWz8vR/yPc0G/v19MYuHq+vXbyd5fhaH1rXBd/ixJ9j6pflV9PpsdiBUvNAAng4PTQXjCeJC8d9Z4fpqehmkyv1di8nHpoLh+TwfJGw9mDxUpHhrv/fPJfvHKsr+YEZvsWX/3R8mtr+c76q3dUi+L3rzxdf4J1EYttr+qhhF0Nho275eN/jicjaC3fvNm9lImb+WfkC4+phL+WarJ7TgrZfnDcf2cxpVaXJdhQJgM3g1P3vtFRthvPL+aG4+rvztulHI8/+uOm/0c3TmrJq3ivwVO1rrR39uDJKyq8geuqHaLvcwsKnozX4sdqGrXirYVOf0q2Xv3H/+veKRx/4I16K3/OcmeMNzPPnc+Pcmut28GeSn2z0L7rE6hw++fzd4/WFht5YUd3jkLr+qT9DRbQU0G+Qsvnz89ufV1MSzMMLMShSqc5k9p/oZwLytYMZBkL6gsZU2c3Wv096Du6BXVbrmXoQL5JmSxFtteVb2g6bc/G9Sj++x+WeS92QckQyFCGcKzjjNByy9H5MN/xiurNhnc/ni2tyz/clTuHqqXmxci/4BL8cIbz//fX//9INlvYKpS1l/GmP8NJa/gjvOru0mc3Vvs7wLGXLvFXpYqDLNxr1mL7a+qQdA0W25/lCzczxudDt6bbd6CoNl6fXzrSdatcTlI7D0oFizTfLmS7fyS2bd3F0qZ/TjOp7WD6rFhMX2Uzy8/3brfwMxKWU9wzd+QE8blGNKckAri7N5if0vMFdVusZflq8kn5mYtdqCqXSt6UZHr46LZsql5jpDfL/4lxo1P9wRBs3+WYXHdrCpl+s392dw2+4hA0agchFeV8vwoefcf/uu3+QMVZrmUc78hzS6YYX62E2730/VLWWCuqHaLvewq6PZUVSFodWwwyueGsoq5frP71VAxW+fnfxs2SoPjtJjiq5e2UMqQb/+uWm2Pk/ebjcbJXx8dpCtLWTDrlVCOWZqMFn5DaJ4zq9tVpVzsb4m5otot9rI5xTdrsf1VVQg6GeQrpdP8FG2Yj+vT07CunrtfFvn8qLFJehIu+b/IJ6h8k/R5du5XHEHUpRwnf3rW+HJkWDrnb3d8+1F5mp1/h391KcPa+/v7STaSVJhRvkMsl/OTo+ZD1a94Nz9cKG9XlXKxvyXmimq33MvZJmm+FtteVcl78c3viYQJoByk5+9Xi61R/UnT4ut5xVlIfsZSMuZKWZ5A1GNU/Z7HG+WbZ8VS+uJSzt6NmWFGcwciszOO2fQ5SqoBq+BcXMrl/uY/XlHtFnvZPGZq1mIHqtq5ohclrOWTpHxrPX8Pea9YHjfuj+oFTzXsF8cZxeFXPvqHKt3+ZHEyyg98m9+NbP6ucqJZuZzPT68/z35RjQn/Fvu/q46U89Fr8TdUx9bF7cpSLvS3xFxR7RZ7WfSmPKhvCrr1Vd3yTzPxDX5HYqrqdgv6/X3rJzluaKKq6jYLmi3T+Hq0OpFVdZsFDUuyDdZ85PJEVtVtFpTcgCAoiToISqIOgpKog6Ak6iAoiTpSQf/kJkdZyPS7G5z5SmgF/cNaSddrtm67OHBiQZ1djRuHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagI10/QF4eHhz+uf3r5k2fZzetHD4ufEVRUSATdUNAXHzwLVfwMQZfbdRO0pZAIupmgRQFf/vR5+uqLw1DirK7h3p/9C4J2E7StkAi6maDlhR7y9LP0xYfPs5+ze4dZXe/evatdh21XOr32tkLe/e6yZ+92egkaLvk8r74MV/wvH4e6ZveY4v/QcQRtKyQj6IaChgv95aeH97KCpq9/ld3kY8FTBO0oaEshEXQzQYsrPFzxjKCKNejqQiLoZoKmL+49Lv64YOmEoLpCIuiGgmbzUrbrbGw+Xz9iF5+l4wbx8kIi6KaCXh4EVQVBqyCoCIegIhyCenAIKsIhqAeHoCIcgnpwCCrCIagHh6AiHIJ6cAgqwiGoB4egIhyCenAIKsIhqAeHoCIcgnpwCCrCIagHh6AiHIJ6cAgqwiGoB4egIhyCenAIKsIhqAeHoCIcgnpwCCrCIagHh6AiHIJ6cAgqwiGoB4egIhyCenAIKsIhqAeHoCLc+oKeHyVVbj1Zq6wIKiokgtZhBBXhGEFFOAT14BBUhOsm6GTAFL9euxZBuxUSQetcLuj05GB6cnx+dLxeWRFUVEgErXO5oFlFhwfp+M7ZWmVFUFEhEbROu6Cj/XTMFN/arl3QDoVE0Dota9BhXtQRI2hru5Y1aLdCImidFkHD2ikdJnsP1isrgooKiaB1OGYS4ThmEuEQ1INDUBGOtzo9ON7qFOG6jaCjrKKcg67RrmUE7VZIBK3TfswUwjFTe7v2Y6YOhUTQOggqwiGoCLfRFH+wXlkRVFRIBK3TtosfZ0v7dVdOCCoqJILW4ZhJhOOYSYRDUA8OQUW4joKOwry09jvICCoqJILWafuwyJ3fHh1PT/bXKyuCigqJoHVaj5myAxKOmdrbtR4zdSkkgtZBUBEOQUW4jueg2czEOega7drOQTsVEkHrrHUOum5ZEVRUSAStwzGTCMcxkwiHoB4cgopwCOrBIagIh6AeHIKKcOsLOj3hE/Xrt7tE0O6FRNA6l42g4w4fv8mDoKJCImidtrc6O5UWQUWFRNA6rWvQbH7i86Dt7VrXoF0KiaB11tkkTU9Yg7a2W2eTtHYhEbTOOiPo2v8/DAQVFRJB67T97xc7FBVBZYVE0DqX7+I7FRVBZYVE0Dqcg4pwnIOKcLyT5MHxTpIIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwCOrBIagIh6AeHIKKcAjqwSGoCIegHhyCinAI6sEhqAiHoB4cgopwVydokiSX9mjl4x1fYRx1RVAR7soETX744YeLDUxbHu/4CuOoK4KKcFclaObfCgPTlsc7vsI46oqgIhyCenAIKsIhqAeHoCIca1APDkFFOHbxHhyCinAI6sE5BV1VqTheuRjHFO/BGQVdWak4XrkYxybJg/MJurpScbxyMQ5BPTgEFeEQ1INDUBGONagHxxpUhGMX78Gxixfh+LidB8c5qAjHCKppttj7iEfQ1kJ3w+2KoLu9Bl3qfbxr0PZCd8LtiqC7vYtf7n20u/g1Ct0Ft347BO3WDEHbgqDNHiHoZUHQKqxBN2vGGtSFYxevacYu3oRDUE2ziARtK6RZUPHlwxQvaRbRFN9WSPMUr16AsElSNItok9RWSPMmSb6FQ1BFMwRds3dtQVAPDkHX7F1brk9Q1qB9whq0Crv4DZuxi2/Dx76LR9AeuUpB64dXvPKlp3cTtGvvmOIlzXZnip89fPErX356pym+c+/YJCma7c4mqfHwha/8gqd32SR17x2CKpohqK13CKpohqC23rEGlTRjDerqHbt4TTN28abe8a1OD45vdYpwjKCaZoygpt6xBpU0Yw3q6h27eEUzdvG23iGoohmC2nqHoIpmCGrrHWtQSTPWoK7esYvXNGMXb+odgmqaIaipd0zxkmZM8a7esUlSNGOTZOsdgiqaIaitdwiqaIagtt6xBpU0Yw3q6h27eE0zdvGm3m2PoHH/T9kQ1NS7rZni25cAczhZO6b4tqfvxhTfd5O0xiZqrhCydmyS2p6+G5skBO0TBK2CoBs1Q1Bb71iDSpqxBnX1jl28phm7eFPv+FanB8e3OkU4RtD1mnXtHSOoqHesQddq1rl3rEFFvWMXv06z7r1jFy/qHYKu0wxBL3k6gq7z+AJO1w5B256+G4KyBu0T1qBV2MWvaMYufuXTd2QXj6A9gqBVmOIvbsYUv/rpuzHFs0nqEzZJVRD0wmYIesnTEXSdxxdwunYI2vb03RCUNWifsAatwi5+RTN28SufviO7+NWJ42NdYhwftxPhbswI2nLhq3vHCCrq3U1Zg7YsneS9Yw0q6t0N2cW3bD71vWMXL+odgnp6h6Ci3iGop3cIKuoda1BP71iDinrHLr6Fzi6+7ek7sot3C9qzrgi69PANE9Q8xfecmZjilx++WVO8eZPUc23PJumCh2/WJglB+wRBqyCoqHcIKuoda1BP71iDinrHLt7TO3bxot5ZBdXm7lbhlIVMv5Pm7lbh5ishFVScuzcJ50zcr/xyHIJGgnMm7le+vYISgqAk7iAoiToISqIOgpKoE52gL3/yLPzx6eEH4eb1o8N7j9P01ReHHz7vj/v9YZaHKlx10wfnzI4UMjZBX2R9ffXFw/T3obNPH6YvPnz++lH46ccCXPazDvfql4+zmz44Z3alkJEJ+vTev4dL6+VPn6eh26++fJb9XXaTX3A9cRkq/KnC5TdfPuuBc2ZnChmZoMXYX/f837KZaVaWfrjwU3aFqnDlhd8L58yOFDJKQfOx/97jl58+zF5EmE36FaLEFdd9KsMVa6ZeOGd2pJBRCpotm//2V4+bU0CfQpS4oqT9L/yqd3/zOH3xwbOoR9AdKGScgqb5gunVv9YrqI1XeQ1cWPp8lvZaic3hyis+0jXozhQySkHzVUlY5TzNZ6bXjz7bfJ/cxL3OLv5UhSsv/F44Z3akkFEKmr44zI/EwuKk70njHK6YQFS4cNP3cNGZHSlkdIIS0gyCkqiDoCTqICiJOghKog6CkqiDoCTqbLGg05NbT8LNZLB/3T3Z8kRdyC0WNFT0IPw5vHN23R3Z9sRcyG0WNB2FK38yOL7ubmx/Ii7kVgt6frSfDvfTbJJKkmyamgySJDlIJ2/9PP+RrJmIC7nVgqbjvV+8+SAr634YBe6cnR8d56NBnKupmBNvIbdb0HDBZ6uncXaVh6L+MVtETd58EOlsFXHiLeR2C1pUNB0leUKJx+Fm78EkGw1Il0RbyN0QtNx/nh/tPcgv/Ouv67Yl2kLuhKDjvaKO46y+4ygu/G1LtIXcCUGnJ6GgoZ5ZfSeDKOq6bYm2kDshaH46kl38w3DzT0fHEdR12xJtIbdcULLrQVASdRCURB0EJVEHQUnUQVASdRCURB0EJVEHQUnUQVASdRCURB0EJVEHQUnUQVASdRCURB0EJVEHQUnU+X//GjD7xIRGbwAAAABJRU5ErkJggg==" style="display: block; margin: auto;" /> ### Extra Functions</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(USAGoldSummerD[<span class="st">&#39;Sex&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(USAGoldSummerD[<span class="st">&#39;Sex&#39;</span>]) <span class="co"># Counting USA gold medals by sex</span></span></code></pre></div>
 <pre><code>## 
 ##  F  M 
 ## 95 84</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(RussiaGold[<span class="st">&#39;sport&#39;</span>])</span></code></pre></div>
-<pre><code>## 
-##                 Athletics                  Biathlon                    Boxing 
-##                        29                        22                        10 
-##                  Canoeing      Cross Country Skiing                   Cycling 
-##                         3                        23                         5 
-##                    Diving                   Fencing            Figure Skating 
-##                         6                        33                        16 
-##                Gymnastics                  Handball                      Judo 
-##                        16                        30                         5 
-##         Modern Pentathlon       Rhythmic Gymnastics                    Rowing 
-##                         4                        34                         4 
-##                  Shooting Short Track Speed Skating                  Skeleton 
-##                         7                         6                         1 
-##              Snowboarding             Speed Skating                  Swimming 
-##                         2                         3                         5 
-##     Synchronized Swimming                    Tennis              Trampolining 
-##                        54                         2                         2 
-##                Volleyball             Weightlifting                 Wrestling 
-##                        12                         3                        29</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(USSRGold[<span class="st">&#39;sport&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(USSRGold[<span class="st">&#39;sport&#39;</span>]) <span class="co"># Counting USSR gold medals by sport</span></span></code></pre></div>
 <pre><code>## 
 ##              Archery            Athletics           Basketball 
 ##                    1                   83                   48 
@@ -8294,7 +8264,7 @@ Gold
 ##                   18                   81                   22 
 ##        Weightlifting            Wrestling 
 ##                   39                   62</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(GoldEverything[<span class="st">&#39;team&#39;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(GoldEverything[<span class="st">&#39;team&#39;</span>]) <span class="co"># Counting all gold medals by team</span></span></code></pre></div>
 <pre><code>## 
 ##                                         Algeria 
 ##                                               5 
