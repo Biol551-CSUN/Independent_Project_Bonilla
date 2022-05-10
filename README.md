@@ -13,7 +13,7 @@ The aim of my independent project was to apply what I have learned in class to a
 **Subfolder Components:**
 
 -   [Data:](https://github.com/Biol551-CSUN/Independent_Project_Bonilla/blob/main/Independent_Folder/Data/olympics.csv) Olympics dataset that was used.
--   [Output:](https://github.com/Biol551-CSUN/Independent_Project_Bonilla/tree/main/Independent_Folder/Output) Plots used for country and sex comparison. 6 plots total.  
+-   [Output:](https://github.com/Biol551-CSUN/Independent_Project_Bonilla/tree/main/Independent_Folder/Output) Plots used for country and sex comparison. 5 plots total.  
 -   [Scripts:](https://github.com/Biol551-CSUN/Independent_Project_Bonilla/tree/main/Independent_Folder/Scripts) RMarkdown and HTML scripts used. Plots, tables and used functions included. 
 
 **Libraries Used:**
