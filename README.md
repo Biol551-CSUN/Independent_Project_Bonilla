@@ -12,7 +12,7 @@ The aim of my independent project was to apply what I have learned in class to a
 
 **Subfolder Components:**
 
--   [Data:](Independent_Project_Bonilla/Independent_Folder/Data at main · Biol551-CSUN/Independent_Project_Bonilla (github.com)) Olympics data used
+-   [Data:](https://github.com/Biol551-CSUN/Independent_Project_Bonilla/blob/main/Independent_Folder/Data/olympics.csv) Olympics data used
 -   [Output:](Independent_Project_Bonilla/Independent_Folder/Output at main · Biol551-CSUN/Independent_Project_Bonilla (github.com)) Plots used for country and sex comparison   
 -   [Scripts:](Independent_Project_Bonilla/Independent_Folder/Scripts at main · Biol551-CSUN/Independent_Project_Bonilla (github.com)) RMarkdown and HTML scripts used
 
