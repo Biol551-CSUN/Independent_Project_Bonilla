@@ -6,6 +6,8 @@ output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
+    toc: TRUE
+    
 ---
 
 ```{r setup, include=FALSE}
